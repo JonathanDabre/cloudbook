@@ -3,29 +3,68 @@ import NoteContext from "./noteContext";
 
 const NoteState = (props)=>{
 
-    const s1 = {
-        "name": "Jonathan",
-        "class": "5b"
-    }
+    const notesInitial = [
+        {
+          "_id": "64bcf1350a110ab9f42d9c8b",
+          "user": "64bc1ecb2e3813f20f2f24e4",
+          "title": "Title1",
+          "description": "Description1",
+          "tag": "tag3 upd1",
+          "date": "2023-07-23T09:21:57.660Z",
+          "__v": 0
+        },
+        {
+          "_id": "64be5e7764981ab530718c68",
+          "user": "64bc1ecb2e3813f20f2f24e4",
+          "title": "Title2",
+          "description": "Description2",
+          "tag": "tag2",
+          "date": "2023-07-24T11:20:23.840Z",
+          "__v": 0
+        },
+        {
+          "_id": "64b27e7764981ab530718c68",
+          "user": "64bc1ecb2e3813f20f2f24e4",
+          "title": "Title3",
+          "description": "Description3",
+          "tag": "tag2",
+          "date": "2023-07-24T11:20:23.840Z",
+          "__v": 0
+        },
+        {
+          "_id": "64b21e7764981ab530718c68",
+          "user": "64bc1ecb2e3813f20f2f24e4",
+          "title": "Title4",
+          "description": "Description4",
+          "tag": "tag2",
+          "date": "2023-07-24T11:20:23.840Z",
+          "__v": 0
+        },
+        {
+          "_id": "64b45e7764981ab530718c68",
+          "user": "64bc1ecb2e3813f20f2f24e4",
+          "title": "Title5",
+          "description": "Description5",
+          "tag": "tag2",
+          "date": "2023-07-24T11:20:23.840Z",
+          "__v": 0
+        },
+        {
+          "_id": "64b23e7764981ab530718c68",
+          "user": "64bc1ecb2e3813f20f2f24e4",
+          "title": "Title6",
+          "description": "Description6",
+          "tag": "tag2",
+          "date": "2023-07-24T11:20:23.840Z",
+          "__v": 0
+        }
+      ]
 
-    // Initializing state variable with s1
-    const [state, setState] = useState(s1)
-
-    const update = ()=>{
-        // to update state after 2 seconds
-        setTimeout(() => {
-            setState({
-                "name" : "JonathanDabre",
-                "class" : "100b"
-            })
-            
-        }, 2000);
-    }
-    
+    const [notes, setNotes] = useState(notesInitial)
 
     return (
         //whatever goes in value = {} becomes available.
-        <NoteContext.Provider value={{state: state, update: update}}>
+        <NoteContext.Provider value={{notes, setNotes}}>
             {props.children}
         </NoteContext.Provider>
     )

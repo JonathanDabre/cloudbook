@@ -16,11 +16,13 @@ function App() {
       {/* Wrapping entire app arround NoteState so we can access state variable anywhere in the app. */}
       <NoteState>
         <Router>
-          <Navbar/>          
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/about" element={<About/>} />
-          </Routes>
+          <Navbar/>  
+          <div className="container">        
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route exact path="/about" element={<About/>} />
+            </Routes>
+          </div>
         </Router>
       </NoteState>
     </>
