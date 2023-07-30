@@ -10,14 +10,13 @@ const JWT_SECRET = "JonathanIsGood"
 
 //Route1: Create a user  using: POST "/api/auth/createuser". No login required
 //body('input field', 'message').anyValidatorFunction()
-
-
 router.post('/createuser', [
     // Checking for validation
     body('name', "Enter a valid Name").isLength({min: 3}), 
     body('email', "Enter a valid Email").isEmail(),
     body('password', "Password must be atleast 5 characters").isLength({min: 5})
 ], async (req, res)=>{
+    let success = false
     // If there are errors, return Bad request and the errors.
     const errors = validationResult(req) //whatever is the result from checking the validation
     if(!errors.isEmpty()){
@@ -25,7 +24,7 @@ router.post('/createuser', [
     }
     // Check weather the user with this email already exists.
     try {
-        
+       
     
         let user = await User.findOne({email: req.body.email})
 
@@ -53,7 +52,8 @@ router.post('/createuser', [
         console.log(authtoken)
 
         //res.json(user) //send response to client.
-        res.json({authtoken})
+        success = true
+        res.json({success, authtoken})
 
     } catch (error) {
         console.log(error.message)
@@ -73,7 +73,9 @@ router.post('/login', [
     }
 
     const {email, password} = req.body
+    let success = false
     try {
+        
         let user = await User.findOne({email})
         if(!user){
             return res.status(400).json({error: "Please try to login with correct credentials"})
@@ -88,7 +90,8 @@ router.post('/login', [
             id: user.id
         }
         const authtoken = jwt.sign(data, JWT_SECRET)
-        res.json({authtoken})
+        success = true
+        res.json({success, authtoken})
 
     } catch (error) {
         console.log(error.message)
@@ -100,13 +103,16 @@ router.post('/login', [
 //Route3: Get loggedin User  details using: POST "/api/auth/getuser". Login required
 // fetchuser is middleware function.
 router.post('/getuser', fetchuser, async (req, res)=>{
+    let success = false
     try {
+        
         const userId = req.user.id
         
         const user = await User.findById(userId).select("-password")
+        success = true
         res.send(user)
     } catch (error) {
-        console.log(error.message)
+        console.log(success, error.message)
         res.status(500).send("Internal Server Error")
     }
 })
