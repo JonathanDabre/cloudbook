@@ -1,105 +1,110 @@
 import React, { useState } from "react";
 import NoteContext from "./noteContext";
 
-const NoteState = (props)=>{
+const NoteState = (props) => {
 
-    const notesInitial = [
-        {
-          "_id": "64bcf1350a110ab9f42d9c8b",
-          "user": "64bc1ecb2e3813f20f2f24e4",
-          "title": "Title1",
-          "description": "Description1",
-          "tag": "tag3 upd1",
-          "date": "2023-07-23T09:21:57.660Z",
-          "__v": 0
-        },
-        {
-          "_id": "64be5e7764981ab530718c68",
-          "user": "64bc1ecb2e3813f20f2f24e4",
-          "title": "Title2",
-          "description": "Description2",
-          "tag": "tag2",
-          "date": "2023-07-24T11:20:23.840Z",
-          "__v": 0
-        },
-        {
-          "_id": "64b27e7764981ab530718c68",
-          "user": "64bc1ecb2e3813f20f2f24e4",
-          "title": "Title3",
-          "description": "Description3",
-          "tag": "tag2",
-          "date": "2023-07-24T11:20:23.840Z",
-          "__v": 0
-        },
-        {
-          "_id": "64b21e7764981ab530718c68",
-          "user": "64bc1ecb2e3813f20f2f24e4",
-          "title": "Title4",
-          "description": "Description4",
-          "tag": "tag2",
-          "date": "2023-07-24T11:20:23.840Z",
-          "__v": 0
-        },
-        {
-          "_id": "64b45e7764981ab530718c68",
-          "user": "64bc1ecb2e3813f20f2f24e4",
-          "title": "Title5",
-          "description": "Description5",
-          "tag": "tag2",
-          "date": "2023-07-24T11:20:23.840Z",
-          "__v": 0
-        },
-        {
-          "_id": "64b23e7764981ab530718c68",
-          "user": "64bc1ecb2e3813f20f2f24e4",
-          "title": "Title6",
-          "description": "Description6",
-          "tag": "tag2",
-          "date": "2023-07-24T11:20:23.840Z",
-          "__v": 0
-        }
-      ]
+  const host = "http://localhost:5000"
 
-    const [notes, setNotes] = useState(notesInitial)
+  const notesInitial = [];
 
-    // Add a note
-    const addNote = (title, description, tag)=>{
+  const [notes, setNotes] = useState(notesInitial);
 
-      // TODO: API Call
-      console.log("Adding a new note")
-
-      const note  = {
-        "_id": "64b23e7764981ab530ew32468",
-        "user": "64bc1ecb2e3813f20f2f24e4",
-        "title": title,
-        "description": description,
-        "tag": tag,
-        "date": "2023-07-24T11:20:23.840Z",
-        "__v": 0
+  // Get all notes
+  const getNotes = async () => {
+    // TODO: API Call
+    const response = await fetch(`${host}/api/notes/fetchallnotes`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YmMxZWNiMmUzODEzZjIwZjJmMjRlNCIsImlhdCI6MTY5MDA5NjM5MX0.l879kF1uWtAnhHkyArj5vbAEa5BJTlZrgLiD3hlbfcY"
       }
-      setNotes(notes.concat(note))
-    }
+    });
+
+    const json = await response.json()
+    // console.log(json)
+    setNotes(json)
+  };
+
+
+
+  // Add a note
+  const addNote = async (title, description, tag) => {
+    // TODO: API Call
+    // eslint-disable-next-line 
+    const response = await fetch(`${host}/api/notes/addnote`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YmMxZWNiMmUzODEzZjIwZjJmMjRlNCIsImlhdCI6MTY5MDIwMTAwMH0.eq8iRB3BQ0VsALSTQ-d4CtOMTVnGcqGDH5PLGCJjrqw"
+      },
+      body: JSON.stringify({title, description, tag}), // body data type must match "Content-Type" header
+    });
+
+    const note = await response.json()
+    setNotes(notes.concat(note)); 
+        
+  };
+
+  // Delete a note
+  const deleteNote = async (id) => {
+    // TODO: API Call
+    const response = await fetch(`${host}/api/notes/deletenote/${id}`,{
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YmMxZWNiMmUzODEzZjIwZjJmMjRlNCIsImlhdCI6MTY5MDIwMTAwMH0.eq8iRB3BQ0VsALSTQ-d4CtOMTVnGcqGDH5PLGCJjrqw"
+      }
+    })
     
+    // eslint-disable-next-line
+    const json = await response.json()
+    // console.log(json)
+    console.log("Deleting note with id:", id);
+    const newNotes = notes.filter((note) => {
+      return note._id !== id;
+    });
+    setNotes(newNotes);
+  };
 
-    // Delete a note
-    const deleteNote = (id)=>{
+  // Update a note
+  const editNote = async (id, title, description, tag) => {
+    // TODO: API Call
+    
+    const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YmMxZWNiMmUzODEzZjIwZjJmMjRlNCIsImlhdCI6MTY5MDIwMTAwMH0.eq8iRB3BQ0VsALSTQ-d4CtOMTVnGcqGDH5PLGCJjrqw"
+      },
+      body: JSON.stringify({title, description, tag}), // body data type must match "Content-Type" header
+    });
+    // eslint-disable-next-line 
+    const json = await response.json();
+    // console.log(json)
 
+    let newNotes = JSON.parse(JSON.stringify(notes))
+    // Logic to edit in client
+    for (let index = 0; index < notes.length; index++) {
+      const element = notes[index];
+      if (element._id === id) {
+        newNotes[index].title = title;
+        newNotes[index].description = description;
+        newNotes[index].tag = tag;
+        break;
+      }
+      
     }
+    setNotes(newNotes)
+  };
 
+  return (
+    //whatever goes in value = {} becomes available.
+    <NoteContext.Provider
+      value={{ notes, setNotes, addNote, editNote, deleteNote, getNotes }}
+    >
+      {props.children}
+    </NoteContext.Provider>
+  );
+};
 
-    // Update a note
-    const updateNote = (id)=>{
-
-    }
-
-
-    return (
-        //whatever goes in value = {} becomes available.
-        <NoteContext.Provider value={{notes, setNotes, addNote, updateNote, deleteNote}}>
-            {props.children}
-        </NoteContext.Provider>
-    )
-}
-
-
-export default NoteState
+export default NoteState;

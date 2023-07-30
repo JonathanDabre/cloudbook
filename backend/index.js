@@ -1,11 +1,17 @@
 const connectToMongo = require('./db') //importing what all is exported db.js file. Here it is function.
 const express = require('express')
+const cors = require("cors")
 
 connectToMongo(); //establishing connection with database
 const app = express()
 const port = 5000 //We are using 5000 as port 3000 can be used for react-app.
 
+app.use(cors({
+  origin:"http://localhost:3000",
+  methods: ["GET", "POST", "PUT", "DELETE"]
+}))
 app.use(express.json())
+
 
 app.get("/about", (req, res)=>{
   res.sendFile(__dirname + "/byby.html")
