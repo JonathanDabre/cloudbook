@@ -16,7 +16,7 @@ const Signup = (props) => {
         e.preventDefault();
         let {name, email, password, cpassword} = credentials
 
-        const response = await fetch("https://cloudbook-jon.vercel.app/api/auth/createuser", {
+        const response = await fetch("https://cloudbook-api.vercel.app/api/auth/createuser", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"

@@ -3,7 +3,7 @@ import NoteContext from "./noteContext";
 
 const NoteState = (props) => {
 
-  const host = "https://cloudbook-jon.vercel.app/"
+  const host = "https://cloudbook-api.vercel.app"
 
   const notesInitial = [];
 
