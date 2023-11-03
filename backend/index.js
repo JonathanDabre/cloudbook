@@ -7,7 +7,7 @@ const app = express()
 const port = 5000 //We are using 5000 as port 3000 can be used for react-app.
 
 app.use(cors({
-  origin:"http://localhost:3000",
+  origin:"https://cloudbook-ivory.vercel.app/",
   methods: ["GET", "POST", "PUT", "DELETE"]
 }))
 app.use(express.json())
