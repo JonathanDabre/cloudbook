@@ -10,7 +10,7 @@ const JWT_SECRET = "JonathanIsGood"
 
 //Route1: Create a user  using: POST "/api/auth/createuser". No login required
 //body('input field', 'message').anyValidatorFunction()
-router.post('/createuser', [
+router.post('https://cloudbook-api.vercel.app/createuser', [
     // Checking for validation
     body('name', "Enter a valid Name").isLength({min: 3}), 
     body('email', "Enter a valid Email").isEmail(),
@@ -62,7 +62,7 @@ router.post('/createuser', [
 })
 
 //Route2: Authenticate a user  using: POST "/api/auth/login". No login required
-router.post('/login', [
+router.post('https://cloudbook-api.vercel.app/login', [
     body('email', "Enter a valid Email").isEmail(),
     body('password', "Password cannot be blank").exists() 
 ], async (req, res)=>{
@@ -102,7 +102,7 @@ router.post('/login', [
 
 //Route3: Get loggedin User  details using: POST "/api/auth/getuser". Login required
 // fetchuser is middleware function.
-router.post('/getuser', fetchuser, async (req, res)=>{
+router.post('https://cloudbook-api.vercel.app/getuser', fetchuser, async (req, res)=>{
     let success = false
     try {
         
