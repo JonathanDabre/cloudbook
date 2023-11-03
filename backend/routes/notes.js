@@ -8,7 +8,7 @@ const {body, validationResult} = require('express-validator') //to  addd validat
 
 
 //Route1: Get All the Notes using: Get "/api/auth/getuser". Login required
-router.get('/fetchallnotes', fetchuser,async (req, res)=>{
+router.get('https://cloudbook-api.vercel.app/getuser/fetchallnotes', fetchuser,async (req, res)=>{
     try {
         const notes = await Note.find({user: req.user.id})
         res.send(notes)
@@ -23,7 +23,7 @@ router.get('/fetchallnotes', fetchuser,async (req, res)=>{
 })
 
 //Route2: Add a new Note using: POST "/api/auth/addnote". Login required
-router.post('/addnote', fetchuser,[
+router.post('https://cloudbook-api.vercel.app/getuser/addnote', fetchuser,[
     body('title', "Enter a Title").isLength({min:1}),
     body('description', "Enter a Description").isLength({min:1})
 
@@ -53,7 +53,7 @@ router.post('/addnote', fetchuser,[
 
 //Route3: Update a existing Note using: PUT "/api/auth/addnote". Login required
 
-router.put("/updatenote/:id", fetchuser, async(req, res)=>{
+router.put("https://cloudbook-api.vercel.app/getuser/updatenote/:id", fetchuser, async(req, res)=>{
     try {
         const {title, description, tag} = req.body;
         //Create a newNote object
@@ -88,7 +88,7 @@ router.put("/updatenote/:id", fetchuser, async(req, res)=>{
 
 //Route4: Deleting a existing Note using: DELETE "/api/auth/deletenote". Login required
 
-router.delete("/deletenote/:id", fetchuser, async(req, res)=>{
+router.delete("https://cloudbook-api.vercel.app/getuser/deletenote/:id", fetchuser, async(req, res)=>{
     try {
     
         // Find the note to be delete and delete it.
