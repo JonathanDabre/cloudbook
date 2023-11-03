@@ -1,7 +1,14 @@
 import React, {useEffect} from 'react'
-import {Link, useLocation } from 'react-router-dom'
+import {Link, useLocation, useNavigate } from 'react-router-dom'
 
 export default function Navbar() {
+
+    const navigate = useNavigate()
+
+    const handleLogout = ()=>{
+        localStorage.removeItem('token')
+        navigate('/login')
+    }
 
     let location = useLocation();
 
@@ -15,7 +22,7 @@ export default function Navbar() {
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary navbar-dark bg-dark">
         <div className="container-fluid">
-            <a className="navbar-brand" href="/">iNotebook</a>
+            <a className="navbar-brand" href="/">Cloudbook</a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
@@ -29,10 +36,18 @@ export default function Navbar() {
                     </li>
                 
                 </ul>
-            <form className="d-flex" role="search">
-                <Link className="btn btn-success mx-2" to="/login" role="button" >Login</Link>
-                <Link className="btn btn-outline-success" to="/signup" role="button" >Sign up</Link>                
-            </form>
+            {!localStorage.getItem('token')?
+                <form className="d-flex" role="search">
+                    
+                    <Link className="btn btn-success mx-2" to="/login" role="button" >Login</Link>
+                    <Link className="btn btn-outline-success" to="/signup" role="button" >Sign up</Link>                
+                </form>
+                
+                :
+                <form>
+                    <button className='btn btn-success' onClick={handleLogout} >Log Out</button>
+                </form>
+            }
             </div>
         </div>
         </nav>

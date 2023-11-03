@@ -4,8 +4,8 @@ export default function Alert(props) {
 
     return (
         <div className="" style={{height: '50px'}}>
-            { props.msg && <div className={`alert alert-success alert-dismissible fade show`} role="alert">
-                {props.msg}
+            { props.alert && <div className={`alert alert-${props.alert.type} alert-dismissible fade show`} role="alert">
+                {props.alert.msg}
                 </div>
             }
         </div>

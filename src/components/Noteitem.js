@@ -15,7 +15,10 @@ export default function Noteitem(props) {
                 <p className="card-text text-justify">
                     {notes.description}
                 </p>
-                <i className="icon fa-solid fa-trash-can mx-2" onClick={()=>{deleteNote(notes._id)}}></i>
+                <i className="icon fa-solid fa-trash-can mx-2" onClick={()=>{
+                  deleteNote(notes._id)
+                  props.showAlert("Deleted Note Successfully", "success")
+                }}></i>
                 <i className="icon fa-solid fa-pen-to-square" onClick={()=>{return updateNote(notes)}}></i>
             </div>
         </div>

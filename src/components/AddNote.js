@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
 import noteContext from "../context/notes/noteContext";
 
-export default function AddNote() {
+export default function AddNote(props) {
     const context = useContext(noteContext)
     const {addNote} = context
 
@@ -11,6 +11,7 @@ export default function AddNote() {
         e.preventDefault() // To prevent default action when clicked on submit type buttons
         addNote(note.title, note.description, note.tag)
         setNote({title: "", description: "", tag:""})
+        props.showAlert("Added Note Successfully", "success")
 
 
     }

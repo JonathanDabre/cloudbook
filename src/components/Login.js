@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const Login = (props) => {
 
     const [credentials, setCredentials] = useState({email: "", password: ""})
     const navigate = useNavigate()
@@ -26,15 +26,19 @@ const Login = () => {
             //Save the auth token and redirect
             localStorage.setItem("token", json.authtoken) //Part of web Storage API, helps store in browser as key value pair.
             navigate("/")
+            props.showAlert("Login Successfull", "success")
+
         }
         else{
-            alert("Invalid Credentials")
+            props.showAlert("Invalid Credentials", "danger")
+
         }
 
   }  
 
   return (
-    <div className="my-3">
+    <div className="">
+      <h2>Login to iNotebook</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
